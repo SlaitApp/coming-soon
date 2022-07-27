@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className={styles.home}>
       <Head>
-        <title>Slite - Language Exchange Platform</title>
+        <title>Slait - Language Exchange Platform</title>
       </Head>
       <Header />
       <Body />

@@ -1,7 +1,27 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import styles from '../../styles/Body.module.css';
 
 export default function Body() {
+    const [email, setEmail] = useState('');
+
+    const handleSubmit = async (e) => {
+        console.log(email)
+        e.preventDefault();
+        if (!email.length) return;
+
+        const res = await fetch('/api/register', {
+            body:
+                JSON.stringify({email: email})
+            , header: {
+                "Content-Type": "application/json",
+            },
+            method: 'POST'
+        });
+
+        console.log(res);
+    }
+
     return (
         <div className={'container'}>
             <div className={styles.contentContainer}>
@@ -12,8 +32,8 @@ export default function Body() {
                     </div>
                     <div className={styles.formContainer}>
                         <h3 className={styles.formHeader}>Get notified when we launch</h3>
-                        <form className={styles.form}>
-                            <input type={'email'} name='email' placeholder='Enter your email address' className={styles.input} />
+                        <form className={styles.form} onSubmit={handleSubmit}>
+                            <input type={'email'} value={email} onChange={(e) => setEmail(e.target.value)} name='email' placeholder='Enter your email address' className={styles.input} />
                             <button type='submit' className={styles.btn}>Notify Me</button>
                         </form>
                     </div>
