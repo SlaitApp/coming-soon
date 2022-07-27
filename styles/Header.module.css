@@ -1,0 +1,38 @@
+.nav {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    padding: 25px;
+}
+
+.logo {
+    object-fit: contain;
+    position: relative !important;
+    user-select: none !important;
+    width: 74px;
+    height: 90px;
+}
+
+.logo:hover {
+    -webkit-animation: rotation 2s infinite linear;
+    animation: rotation 2s infinite linear;
+}
+
+@media screen and (max-width: 767px) {
+    .nav {
+        margin-bottom: 30px;
+    }
+    .logo {
+        height: 60px;
+        width: auto;
+    }
+}
+@-webkit-keyframes rotation {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(359deg);
+    }
+}

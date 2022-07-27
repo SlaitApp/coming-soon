@@ -1,0 +1,17 @@
+.footer {
+    margin-top: auto;
+    padding: 15px 0;
+}
+
+.icons {
+    display: flex;
+    gap: 10px;
+}
+
+@media screen and (max-width: 767px) {
+    .icons {
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+}
