@@ -110,6 +110,20 @@ span.line {
     justify-content: center;
 }
 
+.error,
+.success {
+    margin: 10px 0;
+    display: block;
+}
+
+.success {
+    color: #2ed573;
+}
+
+.error {
+    color: #e84118;
+}
+
 @media screen and (max-width: 767px) {
     .contentContainer {
         flex-direction: column-reverse;

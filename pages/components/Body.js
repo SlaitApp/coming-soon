@@ -4,22 +4,31 @@ import styles from '../../styles/Body.module.css';
 
 export default function Body() {
     const [email, setEmail] = useState('');
+    const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
 
     const handleSubmit = async (e) => {
-        console.log(email)
+        setError('')
+        setMessage('');
         e.preventDefault();
         if (!email.length) return;
 
         const res = await fetch('/api/register', {
             body:
-                JSON.stringify({email: email})
+                JSON.stringify({ email: email })
             , header: {
                 "Content-Type": "application/json",
             },
             method: 'POST'
         });
+        if (res.status === 500) {
+            setError('Sorry, there was an issue. Please try again.')
+            return;
+        }
 
-        console.log(res);
+        if (res.status === 202) {
+            setMessage('Congrats! You will be notified when we launch. :)')
+        }
     }
 
     return (
@@ -32,8 +41,11 @@ export default function Body() {
                     </div>
                     <div className={styles.formContainer}>
                         <h3 className={styles.formHeader}>Get notified when we launch</h3>
+                        {error && <span className={styles.error}>{error}</span>}
+                        {message && <span className={styles.success}>{message}</span>}
                         <form className={styles.form} onSubmit={handleSubmit}>
-                            <input type={'email'} value={email} onChange={(e) => setEmail(e.target.value)} name='email' placeholder='Enter your email address' className={styles.input} />
+                            <input type={'email'} value={email} onChange={(e) => setEmail(e.target.value)} name='email'
+                                placeholder='Enter your email address' className={styles.input} required />
                             <button type='submit' className={styles.btn}>Notify Me</button>
                         </form>
                     </div>
@@ -41,10 +53,10 @@ export default function Body() {
                 <div className={styles.previewContainer}>
                     <div className={styles.preview}>
                         <div className={styles.androidBack}>
-                            <img src="/android_back.png" alt="Vercel Logo" />
+                            <img src="/android_back.png" alt="Slait Preview" />
                         </div>
                         <div className={styles.android}>
-                            <img src="/android.png" alt="Vercel Logo" />
+                            <img src="/android.png" alt="Slait Preview" />
                         </div>
                     </div>
                 </div>
