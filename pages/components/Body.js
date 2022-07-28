@@ -25,10 +25,7 @@ export default function Body() {
             setError('Sorry, there was an issue. Please try again.')
             return;
         }
-
-        if (res.status === 202) {
-            setMessage('Congrats! You will be notified when we launch. :)')
-        }
+        setMessage('Congrats! You will be notified when we launch. :)');
     }
 
     return (
