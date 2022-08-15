@@ -4,15 +4,19 @@ import styles from '../../styles/Body.module.css';
 
 export default function Body() {
     const [email, setEmail] = useState('');
+
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
 
+    const [loading, setLoading] = useState(false);
+
     const handleSubmit = async (e) => {
+        if (loading) return;
         setError('')
         setMessage('');
         e.preventDefault();
         if (!email.length) return;
-
+        setLoading(true);
         const res = await fetch('/api/register', {
             body:
                 JSON.stringify({ email: email })
@@ -21,6 +25,7 @@ export default function Body() {
             },
             method: 'POST'
         });
+        setLoading(false);
         if (res.status === 500) {
             setError('Sorry, there was an issue. Please try again.')
             return;
@@ -43,7 +48,7 @@ export default function Body() {
                         <form className={styles.form} onSubmit={handleSubmit}>
                             <input type={'email'} value={email} onChange={(e) => setEmail(e.target.value)} name='email'
                                 placeholder='Enter your email address' className={styles.input} required />
-                            <button type='submit' className={styles.btn}>Notify Me</button>
+                            <button type='submit' disabled={loading} className={styles.btn}>{loading ? 'Submitting' : 'Notify Me'}</button>
                         </form>
                     </div>
                 </div>
