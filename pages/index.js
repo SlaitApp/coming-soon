@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className={styles.home}>
       <Head>
-        <title>Slait - Language Exchange Platform</title>
+        <title>Slait Language Exchange Platform - Chat with natives in any language</title>
       </Head>
       <Header />
       <Body />

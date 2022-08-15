@@ -33,6 +33,6 @@
     }
 
     to {
-        -webkit-transform: rotate(359deg);
+        -webkit-transform: rotate(360deg);
     }
 }
