@@ -1,15 +1,7 @@
-import * as Sentry from "@sentry/react";
-import { BrowserTracing } from "@sentry/tracing";
 import client from '@sendgrid/client';
 import { LogSnag } from 'logsnag';
 
 client.setApiKey(process.env.SENDGRID_API_KEY);
-
-Sentry.init({
-  dsn: process.env.SENTRY_DSN,
-  integrations: [new BrowserTracing()],
-  tracesSampleRate: 1.0,
-});
 
 const logsnag = new LogSnag({
   token: process.env.LOG_SNAG_TOKEN,
