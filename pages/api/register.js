@@ -15,6 +15,7 @@ const request = {
 
 async function register(req, res) {
   const email = JSON.parse(req.body).email;
+  if (!email) return res.status(error.statusCode || 500).json({ error: 'Email not found' });
   request.body = {
     list_ids: [process.env.LIST_ID],
     contacts: [
@@ -22,20 +23,25 @@ async function register(req, res) {
     ]
   };
 
-  client.request(request).then(([response, body]) => {
-    logsnag.publish({
-      channel: 'registration',
-      event: "Subscription Registration",
-      icon: "🎉",
-      tags: {
-        email: email
-      },
-      notify: true,
-    });
+  try {
+    const res = await client.reques(request);
+    logsnagPublish(email);
     return res.status(200).json({ error: "" });
-  }).catch(error => {
+  } catch (error) {
     console.error(error.response.body.errors[0]);
     return res.status(error.statusCode || 500).json({ error: error.message });
+  };
+}
+
+function logsnagPublish(email) {
+  logsnag.publish({
+    channel: 'registration',
+    event: "Subscription Registration",
+    icon: "🎉",
+    tags: {
+      email: email
+    },
+    notify: true,
   });
 }
 
