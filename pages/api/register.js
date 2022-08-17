@@ -24,7 +24,7 @@ async function register(req, res) {
   };
 
   try {
-    const res = await client.reques(request);
+    await client.request(request);
     logsnagPublish(email);
     return res.status(200).json({ error: "" });
   } catch (error) {
